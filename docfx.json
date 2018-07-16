@@ -133,7 +133,7 @@
           "azure/sdk/java/**",
           "**/includes/**"
         ],
-        "src":"docs-ref-conceptual",
+        "src": "docs-ref-conceptual",
         "version": "azure-java-stable"
       },
       {
@@ -254,6 +254,7 @@
       "docs.html"
     ],
     "lruSize": 0,
-    "dest": "azure/sdk/java"
+    "dest": "azure/sdk/java",
+    "markdownEngineName": "markdig"
   }
 }

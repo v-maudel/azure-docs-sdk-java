@@ -81,45 +81,45 @@ The following prerequisites are required in order to complete the steps in this 
 
    ![Add a new app registration][directory-04]
 
-1. Click **New application registration**, specify your application **Name**, use http://localhost:8080 for the **Sign-on URL**, and then click **Create**.
+2. Click **New application registration**, specify your application **Name**, use http://localhost:8080 for the **Sign-on URL**, and then click **Create**.
 
    ![Create new app registration][directory-05]
 
-1. Click your application registration after it has been created.
+3. Click your application registration after it has been created.
 
    ![Select your app registration][directory-06]
 
-1. When the page for your app registration, copy your **Application ID** for later use, then click **Settings**, and then click **Keys**.
+4. When the page for your app registration, copy your **Application ID** for later use, then click **Settings**, and then click **Keys**.
 
    ![Create app registration keys][directory-07]
 
-1. Add a **Description** and specify the **Duration** for a new key and click **Save**; the value for the key will be automatically filled in when you click the **Save** icon, and you need to copy down the value of the key for later. (You will not be able to retrieve this value later.)
+5. Add a **Description** and specify the **Duration** for a new key and click **Save**; the value for the key will be automatically filled in when you click the **Save** icon, and you need to copy down the value of the key for later. (You will not be able to retrieve this value later.)
 
    ![Specify app registration key parameters][directory-08]
 
-1. From the main page for your app registration, click **Settings**, and then click **Required permissions**.
+6. From the main page for your app registration, click **Settings**, and then click **Required permissions**.
 
    ![App registration required permissions][directory-09]
 
-1. Click **Windows Azure Active Directory**.
+7. Click **Windows Azure Active Directory**.
 
    ![Select Windows Azure Active Directory][directory-10]
 
-1. Check the boxes for **Access the directory as the signed-in user** and **Sign in and read user profile**, and then click **Save**.
+8. Check the boxes for **Access the directory as the signed-in user** and **Sign in and read user profile**, and then click **Save**.
 
    ![Enable access permissions][directory-11]
 
-1. On the **Required permissions** page, click **Grant Permissions**, and click **Yes** when prompted.
+9. On the **Required permissions** page, click **Grant Permissions**, and click **Yes** when prompted.
 
    ![Grant access permissions][directory-12]
 
-1. From the main page for your app registration, click **Settings**, and then click **Reply URLs**.
+10. From the main page for your app registration, click **Settings**, and then click **Reply URLs**.
 
-   ![Edit Reply URLs][directory-14]
+    ![Edit Reply URLs][directory-14]
 
-1. Enter "http://localhost:8080/login/oauth2/code/azure" as a new reply URL, and then click **Save**.
+11. Enter "<http://localhost:8080/login/oauth2/code/azure>" as a new reply URL, and then click **Save**.
 
-   ![Add new Reply URL][directory-15]
+    ![Add new Reply URL][directory-15]
 
 ## Configure and compile your Spring Boot application
 
@@ -181,57 +181,57 @@ The following prerequisites are required in order to complete the steps in this 
 
 10. Enter the following code, then save and close the file:
 
-   ```java
-   package com.wingtiptoys.security;
+    ```java
+    package com.wingtiptoys.security;
 
-   import org.springframework.web.bind.annotation.RequestMapping;
-   import org.springframework.web.bind.annotation.RestController;
-   import org.springframework.beans.factory.annotation.Autowired;
-   import org.springframework.security.access.prepost.PreAuthorize;
-   import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-   import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-   import org.springframework.ui.Model;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.security.access.prepost.PreAuthorize;
+    import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+    import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+    import org.springframework.ui.Model;
 
-   @RestController
-   public class HelloController {
+    @RestController
+    public class HelloController {
       @Autowired
       @PreAuthorize("hasRole('Users')")
       @RequestMapping("/")
       public String helloWorld() {
          return "Hello World!";
       }
-   }
-   ```
-   > [!NOTE]
-   > 
-   > The group name that you specify for the `@PreAuthorize("hasRole('')")` method must contain one of the groups that you specified in the `azure.activedirectory.active-directory-groups` field of your *application.properties* file.
-   >
+    }
+    ```
+    > [!NOTE]
+    > 
+    > The group name that you specify for the `@PreAuthorize("hasRole('')")` method must contain one of the groups that you specified in the `azure.activedirectory.active-directory-groups` field of your *application.properties* file.
+    >
 
-   > [!NOTE]
-   > 
-   > You can specify different authorization settings for different request mappings; for example:
-   >
-   > ``` java
-   > public class HelloController {
-   >    @Autowired
-   >    @PreAuthorize("hasRole('Users')")
-   >    @RequestMapping("/")
-   >    public String helloWorld() {
-   >       return "Hello Users!";
-   >    }
-   >    @PreAuthorize("hasRole('Group1')")
-   >    @RequestMapping("/Group1")
-   >    public String groupOne() {
-   >       return "Hello Group 1 Users!";
-   >    }
-   >    @PreAuthorize("hasRole('Group2')")
-   >    @RequestMapping("/Group2")
-   >    public String groupTwo() {
-   >       return "Hello Group 2 Users!";
-   >    }
-   > }
-   > ```
-   >    
+    > [!NOTE]
+    > 
+    > You can specify different authorization settings for different request mappings; for example:
+    >
+    > ``` java
+    > public class HelloController {
+    >    @Autowired
+    >    @PreAuthorize("hasRole('Users')")
+    >    @RequestMapping("/")
+    >    public String helloWorld() {
+    >       return "Hello Users!";
+    >    }
+    >    @PreAuthorize("hasRole('Group1')")
+    >    @RequestMapping("/Group1")
+    >    public String groupOne() {
+    >       return "Hello Group 1 Users!";
+    >    }
+    >    @PreAuthorize("hasRole('Group2')")
+    >    @RequestMapping("/Group2")
+    >    public String groupTwo() {
+    >       return "Hello Group 2 Users!";
+    >    }
+    > }
+    > ```
+    >    
 
 11. Create a folder named *security* in the Java source folder for your application; for example: *src/main/java/com/wingtiptoys/security/security*.
 
